@@ -1,0 +1,93 @@
+# =====================
+# Python
+# =====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pyc
+
+# =====================
+# Virtualenv
+# =====================
+.venv/
+venv/
+ENV/
+env/
+.env.bak
+
+# =====================
+# Variáveis de ambiente
+# =====================
+.env
+.env.test
+.env.local
+.env.production
+*.env
+
+# =====================
+# Pytest / Coverage
+# =====================
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.coveragerc
+
+# =====================
+# MyPy
+# =====================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =====================
+# IDEs e Editores
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# =====================
+# macOS
+# =====================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =====================
+# Alembic
+# =====================
+# Manter as migrations versionadas, mas ignorar cache
+alembic/__pycache__/
+
+# =====================
+# Logs
+# =====================
+*.log
+logs/
+
+# =====================
+# Build / Dist
+# =====================
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# =====================
+# Jupyter
+# =====================
+.ipynb_checkpoints/
+
+# =====================
+# Misc
+# =====================
+*.bak
+*.tmp
+*.orig
