@@ -4,8 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.application.dtos.clube_dto import ClubeCreateDTO, ClubeDTO, ClubeUpdateDTO
 from app.application.services.clube_service import ClubeService
+from app.domain.entities.usuario import Usuario
 from app.domain.exceptions import CnpjJaExisteException, DomainException
-from app.presentation.deps import get_clube_service
+from app.presentation.deps import get_clube_service, get_current_user, require_admin_sistema
 
 
 router = APIRouter(prefix="/clubes", tags=["Clubes"])
@@ -15,6 +16,7 @@ router = APIRouter(prefix="/clubes", tags=["Clubes"])
 def criar_clube(
     clube_dto: ClubeCreateDTO,
     service: ClubeService = Depends(get_clube_service),
+    _: Usuario = Depends(require_admin_sistema),
 ):
     try:
         clube = service.criar_clube(**clube_dto.model_dump())
@@ -26,7 +28,10 @@ def criar_clube(
 
 
 @router.get("/", response_model=list[ClubeDTO])
-def listar_clubes(service: ClubeService = Depends(get_clube_service)):
+def listar_clubes(
+    service: ClubeService = Depends(get_clube_service),
+    _: Usuario = Depends(get_current_user),
+):
     return service.listar_clubes()
 
 
@@ -34,6 +39,7 @@ def listar_clubes(service: ClubeService = Depends(get_clube_service)):
 def obter_clube(
     clube_id: int,
     service: ClubeService = Depends(get_clube_service),
+    _: Usuario = Depends(get_current_user),
 ):
     clube = service.obter_clube(clube_id)
     if not clube:
@@ -46,6 +52,7 @@ def atualizar_clube(
     clube_id: int,
     dados_update: ClubeUpdateDTO,
     service: ClubeService = Depends(get_clube_service),
+    _: Usuario = Depends(require_admin_sistema),
 ):
     try:
         update_data = dados_update.model_dump(exclude_unset=True)
@@ -63,6 +70,7 @@ def atualizar_clube(
 def deletar_clube(
     clube_id: int,
     service: ClubeService = Depends(get_clube_service),
+    _: Usuario = Depends(require_admin_sistema),
 ):
     ok = service.deletar_clube(clube_id)
     if not ok:

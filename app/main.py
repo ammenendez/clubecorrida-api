@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.infrastructure.database import Base, engine
-from app.presentation.api.v1 import clubes
+from app.presentation.api.v1 import clubes, auth
 
 # Cria tabelas na inicialização
 Base.metadata.create_all(bind=engine)
@@ -25,6 +25,7 @@ app.add_middleware(
 # ------------
 
 app.include_router(clubes.router, prefix="/api/v1")
+app.include_router(auth.router, prefix="/api/v1")
 
 
 @app.get("/")
