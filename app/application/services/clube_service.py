@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional 
 from app.domain.entities.clube import Clube
 from app.domain.exceptions import CnpjJaExisteException 
 from app.infrastructure.repositories.clube_repository import ClubeRepository
