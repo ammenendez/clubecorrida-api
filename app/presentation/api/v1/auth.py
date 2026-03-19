@@ -1,3 +1,4 @@
+from app.application.dtos.usuario_dto import LoginResponseDTO
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from app.application.services.usuario_service import UsuarioService
@@ -12,5 +13,16 @@ def login(
     service: UsuarioService = Depends(get_usuario_service),
 ):
     user = service.autenticar(form.username, form.password)
-    token = criar_token({"sub": user.email, "role": user.role})
-    return {"access_token": token, "token_type": "bearer"}
+    token = criar_token({
+        "sub": user.email,
+        "role": user.role,
+        "nome": user.nome,
+        "clube_id": user.clube_id,  # None para admin_sistema
+    })
+    return LoginResponseDTO(
+        access_token=token,
+        token_type="bearer",
+        nome=user.nome,
+        role=user.role,
+        clube_id=user.clube_id,
+    )
