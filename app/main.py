@@ -13,6 +13,9 @@ origins = [
     "http://localhost:3000",   # frontend local (React, Vue, etc.)
     "http://localhost:5173",   # Vite
     # "https://meudominio.com" # produção
+    "http://127.0.0.1:3000",
+    "http://192.168.15.5:3000",  
+    "http://192.168.15.*:3000", 
 ]
 
 app.add_middleware(
